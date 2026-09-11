@@ -4,7 +4,7 @@ Fullstack coding test untuk posisi Fullstack Developer di Seakun.
 
 ## Status
 
-Phase 2 — Product REST API selesai. CRUD, Zod validation, consistent error responses, search, category filter, pagination, sorting, dan backend tests sudah ditambahkan. Image handling dan UI Product akan dikerjakan pada fase berikutnya.
+Phase 3 — Product REST API dan image handling backend selesai. CRUD, Zod validation, consistent error responses, search, category filter, pagination, sorting, local image storage, MIME/signature validation, replacement, cleanup, dan backend tests sudah ditambahkan. Frontend Product UI akan dikerjakan pada fase berikutnya.
 
 ## Struktur yang disepakati
 
@@ -85,7 +85,7 @@ Dengan Docker Compose:
 docker compose up --build
 ```
 
-Perintah Docker Compose akan menjalankan frontend, backend, dan MySQL. Prisma migration belum dijalankan pada Phase 0 dan akan ditambahkan pada Phase 1.
+Perintah Docker Compose akan menjalankan frontend, backend, dan MySQL. Prisma migration dijalankan dengan `npm run db:migrate:deploy` dari folder `backend` setelah MySQL tersedia.
 
 ## Fitur utama
 

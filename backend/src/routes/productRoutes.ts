@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import { ProductController } from "../controllers/productController.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
+import { uploadProductImage } from "../middleware/uploadProductImage.js";
 import {
   validateBody,
   validateParams,
@@ -21,6 +22,12 @@ export const createProductRouter = (controller = new ProductController()): Route
     "/",
     validateQuery(listProductsQuerySchema),
     asyncHandler(controller.list.bind(controller)),
+  );
+  router.post(
+    "/:id/image",
+    validateParams(productIdParamsSchema),
+    uploadProductImage,
+    asyncHandler(controller.uploadImage.bind(controller)),
   );
   router.get(
     "/:id",

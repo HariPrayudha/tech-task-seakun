@@ -36,6 +36,7 @@ const createFakeService = (): ProductServiceContract => ({
   list: vi.fn(async () => listResult),
   getById: vi.fn(async () => product),
   update: vi.fn(async () => product),
+  uploadImage: vi.fn(async () => product),
   delete: vi.fn(async () => undefined),
 });
 
@@ -95,5 +96,38 @@ describe("product routes", () => {
 
     expect(response.status).toBe(404);
     expect(response.body.error.code).toBe("NOT_FOUND");
+  });
+
+  it("accepts a valid image upload", async () => {
+    const service = createFakeService();
+    const pngBuffer = Buffer.from(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
+      "base64",
+    );
+
+    const response = await request(createTestApp(service))
+      .post("/products/8b7e3e1a-15c8-4f17-bf0d-7c4048c5a90e/image")
+      .attach("image", pngBuffer, {
+        filename: "keyboard.png",
+        contentType: "image/png",
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ success: true, data: product });
+    expect(service.uploadImage).toHaveBeenCalledOnce();
+  });
+
+  it("rejects unsupported image MIME types", async () => {
+    const service = createFakeService();
+    const response = await request(createTestApp(service))
+      .post("/products/8b7e3e1a-15c8-4f17-bf0d-7c4048c5a90e/image")
+      .attach("image", Buffer.from("not an image"), {
+        filename: "keyboard.txt",
+        contentType: "text/plain",
+      });
+
+    expect(response.status).toBe(415);
+    expect(response.body.error.code).toBe("INVALID_IMAGE");
+    expect(service.uploadImage).not.toHaveBeenCalled();
   });
 });

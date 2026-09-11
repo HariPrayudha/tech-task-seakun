@@ -15,6 +15,7 @@ export const createApp = (productRoutes: Router = productRouter) => {
     }),
   );
   app.use(express.json());
+  app.use("/uploads", express.static(env.UPLOAD_DIR, { fallthrough: true, index: false }));
 
   app.get("/health", (_request, response) => {
     response.json({

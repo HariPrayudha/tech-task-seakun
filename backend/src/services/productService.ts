@@ -8,6 +8,8 @@ import type {
 import type { ProductListMeta, ProductResponse } from "../types/product.js";
 import type { ProductRepository } from "../repositories/productRepository.js";
 import { productRepository } from "../repositories/productRepository.js";
+import type { ImageStorage, UploadedImage } from "./imageStorage.js";
+import { imageStorage as defaultImageStorage } from "./imageStorage.js";
 import { toProductResponse } from "./productMapper.js";
 
 export type ProductListResult = {
@@ -20,11 +22,15 @@ export interface ProductServiceContract {
   list(query: ListProductsQuery): Promise<ProductListResult>;
   getById(id: string): Promise<ProductResponse>;
   update(id: string, input: UpdateProductBody): Promise<ProductResponse>;
+  uploadImage(id: string, file?: UploadedImage): Promise<ProductResponse>;
   delete(id: string): Promise<void>;
 }
 
 export class ProductService implements ProductServiceContract {
-  constructor(private readonly repository: ProductRepository = productRepository) {}
+  constructor(
+    private readonly repository: ProductRepository = productRepository,
+    private readonly storage: ImageStorage = defaultImageStorage,
+  ) {}
 
   async create(input: CreateProductBody): Promise<ProductResponse> {
     const product = await this.repository.create({
@@ -97,9 +103,32 @@ export class ProductService implements ProductServiceContract {
     return toProductResponse(product);
   }
 
+  async uploadImage(id: string, file?: UploadedImage): Promise<ProductResponse> {
+    if (!file) {
+      throw new AppError("Image file is required", 400, "INVALID_IMAGE");
+    }
+
+    const existingProduct = await this.ensureExists(id);
+    const storedImage = await this.storage.save(file);
+    let updatedProduct: Product;
+
+    try {
+      updatedProduct = await this.repository.update(id, {
+        imageUrl: storedImage.imageUrl,
+      });
+    } catch (error) {
+      await this.deleteStoredImageSafely(storedImage.imageUrl);
+      throw error;
+    }
+
+    await this.deleteStoredImageSafely(existingProduct.imageUrl);
+    return toProductResponse(updatedProduct);
+  }
+
   async delete(id: string): Promise<void> {
-    await this.ensureExists(id);
+    const product = await this.ensureExists(id);
     await this.repository.delete(id);
+    await this.deleteStoredImageSafely(product.imageUrl);
   }
 
   private async ensureExists(id: string): Promise<Product> {
@@ -110,5 +139,13 @@ export class ProductService implements ProductServiceContract {
     }
 
     return product;
+  }
+
+  private async deleteStoredImageSafely(imageUrl: string | null): Promise<void> {
+    try {
+      await this.storage.deleteByUrl(imageUrl);
+    } catch (error) {
+      console.warn("Unable to clean up product image", { imageUrl, error });
+    }
   }
 }

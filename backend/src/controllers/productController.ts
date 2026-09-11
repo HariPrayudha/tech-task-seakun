@@ -9,6 +9,7 @@ import type {
 } from "../schemas/productSchemas.js";
 import type { ProductServiceContract } from "../services/productService.js";
 import { ProductService } from "../services/productService.js";
+import type { UploadedImage } from "../services/imageStorage.js";
 
 export class ProductController {
   constructor(private readonly service: ProductServiceContract = new ProductService()) {}
@@ -34,6 +35,21 @@ export class ProductController {
       this.getProductId(response),
       request.body as UpdateProductBody,
     );
+    response.json(successResponse(product));
+  }
+
+  async uploadImage(request: Request, response: Response): Promise<void> {
+    const file = request.file;
+    const uploadedImage: UploadedImage | undefined = file
+      ? {
+          buffer: file.buffer,
+          mimetype: file.mimetype,
+          originalname: file.originalname,
+          size: file.size,
+        }
+      : undefined;
+    const product = await this.service.uploadImage(this.getProductId(response), uploadedImage);
+
     response.json(successResponse(product));
   }
 
