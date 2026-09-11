@@ -4,7 +4,7 @@ Fullstack coding test untuk posisi Fullstack Developer di Seakun.
 
 ## Status
 
-Phase 3 — Product REST API dan image handling backend selesai. CRUD, Zod validation, consistent error responses, search, category filter, pagination, sorting, local image storage, MIME/signature validation, replacement, cleanup, dan backend tests sudah ditambahkan. Frontend Product UI akan dikerjakan pada fase berikutnya.
+Phase 4 — Backend Product API dan frontend foundation selesai. Backend mencakup CRUD, Zod validation, consistent error responses, search, category filter, pagination, sorting, local image storage, MIME/signature validation, replacement, cleanup, dan tests. Frontend kini memiliki TailwindCSS, router, shared layout, Pinia store, Axios API client, typed domain models, serta loading/empty/error states. Product CRUD UI lengkap dikerjakan pada Phase 5.
 
 ## Struktur yang disepakati
 
@@ -31,10 +31,10 @@ Tidak ada folder aplikasi database terpisah. MySQL berjalan sebagai service Dock
 - Backend: Node.js, TypeScript, Express, Zod, Prisma.
 - Database: MySQL.
 - Frontend: Vue 3, TypeScript, Vite, TailwindCSS.
-- Optional frontend libraries: Pinia dan Axios.
+- Frontend utilities: Pinia, Axios, Vue Router.
 - Infrastructure: Docker Compose.
 
-## Menjalankan Phase 0 secara lokal
+## Menjalankan project secara lokal
 
 Backend:
 
@@ -67,8 +67,6 @@ npm run typecheck
 npm run build
 ```
 
-Product API tersedia di `/products` dengan endpoint list, detail, create, update (`PATCH` dan `PUT`), serta delete. Query list mendukung `search`, `category`, `page`, `limit`, `sortBy`, dan `sortOrder`.
-
 Frontend:
 
 ```bash
@@ -77,7 +75,7 @@ npm install
 npm run dev
 ```
 
-Frontend tersedia di `http://localhost:5173`.
+Frontend tersedia di `http://localhost:5173`. API base URL dapat diatur melalui `frontend/.env` menggunakan `VITE_API_BASE_URL`.
 
 Dengan Docker Compose:
 

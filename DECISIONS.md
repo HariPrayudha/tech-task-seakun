@@ -13,9 +13,10 @@
 | Frontend | Vue 3 + TypeScript + Vite | Matches the requirement and supports a clean component model |
 | Styling | TailwindCSS | Fast responsive UI implementation |
 | Client HTTP | Axios is allowed | Centralized API client and upload progress support |
-| State management | Pinia is allowed, not mandatory | Use only where shared state justifies it |
+| State management | Pinia | Product list state is shared between the dashboard and upcoming product screens |
 | Image storage | Local backend uploads directory | Required by the test; avoids external infrastructure |
 | Infrastructure | Docker Compose | Reproducible local setup for frontend, backend, and MySQL |
+| Frontend styling | TailwindCSS 4.3.3 with the Vite plugin | Current Tailwind integration for Vite with responsive utility classes |
 | Authentication | Not included | Explicitly outside the coding test scope |
 | API version prefix | Not used initially | Keeps endpoint paths aligned with the requirement (`/products`) |
 | Product ID | UUID string | Avoids predictable sequential IDs and works well across services |
