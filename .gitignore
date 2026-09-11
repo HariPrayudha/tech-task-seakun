@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+.npm-cache/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+frontend/dist/
+.vite/
+
+# Local uploads: keep the directory, never commit uploaded files
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Logs and local tooling
+*.log
+.DS_Store
+.idea/
+.vscode/

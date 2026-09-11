@@ -4,7 +4,7 @@ Fullstack coding test untuk posisi Fullstack Developer di Seakun.
 
 ## Status
 
-Repository ini sedang berada pada fase perencanaan. Source code backend, frontend, Prisma schema, dan Docker Compose akan dibuat setelah dokumen requirement dan arah teknis disepakati.
+Phase 0 — project foundation selesai. Backend dan frontend sudah memiliki skeleton independen, Docker Compose sudah disiapkan, dan endpoint health minimal sudah diverifikasi. Fitur Product dan Prisma schema akan dikerjakan pada fase berikutnya.
 
 ## Struktur yang disepakati
 
@@ -33,6 +33,36 @@ Tidak ada folder aplikasi database terpisah. MySQL berjalan sebagai service Dock
 - Frontend: Vue 3, TypeScript, Vite, TailwindCSS.
 - Optional frontend libraries: Pinia dan Axios.
 - Infrastructure: Docker Compose.
+
+## Menjalankan Phase 0 secara lokal
+
+Backend:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+Health check tersedia di `http://localhost:3000/health`.
+
+Frontend:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend tersedia di `http://localhost:5173`.
+
+Dengan Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+Perintah Docker Compose akan menjalankan frontend, backend, dan MySQL. Prisma migration belum dijalankan pada Phase 0 dan akan ditambahkan pada Phase 1.
 
 ## Fitur utama
 
