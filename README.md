@@ -4,7 +4,7 @@ Fullstack coding test untuk posisi Fullstack Developer di Seakun.
 
 ## Status
 
-Phase 0 — project foundation selesai. Backend dan frontend sudah memiliki skeleton independen, Docker Compose sudah disiapkan, dan endpoint health minimal sudah diverifikasi. Fitur Product dan Prisma schema akan dikerjakan pada fase berikutnya.
+Phase 1 — backend foundation selesai. Prisma schema Product, migration awal, environment validation, Prisma Client, dan centralized error handling sudah ditambahkan. Endpoint CRUD dan UI Product akan dikerjakan pada fase berikutnya.
 
 ## Struktur yang disepakati
 
@@ -45,6 +45,18 @@ npm run dev
 ```
 
 Health check tersedia di `http://localhost:3000/health`.
+
+Untuk database backend:
+
+```bash
+cd backend
+copy .env.example .env
+npm install
+npm run db:generate
+npm run db:migrate:deploy
+```
+
+`db:migrate:deploy` membutuhkan MySQL yang aktif dengan `DATABASE_URL` sesuai environment. Pada repository ini migration awal berada di `backend/prisma/migrations/`.
 
 Frontend:
 

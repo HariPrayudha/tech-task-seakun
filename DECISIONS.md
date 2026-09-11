@@ -9,7 +9,7 @@
 | Backend language | TypeScript | Required by the test and improves maintainability |
 | Validation | Zod | Runtime validation with strong TypeScript inference |
 | Database | MySQL | Explicitly selected for this project |
-| ORM | Prisma | Typed queries, migrations, and fast setup |
+| ORM | Prisma ORM 7.10.0 + MySQL/MariaDB adapter | Typed queries, migrations, and the stable Prisma 7 client workflow |
 | Frontend | Vue 3 + TypeScript + Vite | Matches the requirement and supports a clean component model |
 | Styling | TailwindCSS | Fast responsive UI implementation |
 | Client HTTP | Axios is allowed | Centralized API client and upload progress support |

@@ -38,6 +38,25 @@ Read `README.md` when changing setup, Docker, environment variables, or develope
 - Before declaring work complete, run the relevant lint, typecheck, unit/integration tests, and Docker or build checks that are available.
 - Never commit secrets, `.env` files, uploaded product images, or generated dependency directories.
 
+## Clean-code standards
+
+- Prefer simple, explicit, maintainable code over clever abstractions or premature generalization.
+- Use strict TypeScript. Avoid `any`; define domain, request, response, and component types explicitly.
+- Keep each module focused on one responsibility. Keep controllers/routes thin and put business rules in services.
+- Do not access Prisma directly from route definitions or frontend views. Use the documented service/API boundaries.
+- Validate all untrusted backend input at the boundary with Zod. Treat frontend validation as UX assistance, never as the security boundary.
+- Use consistent naming, predictable file placement, small functions, early returns, and clear error handling.
+- Do not duplicate business logic, formatting logic, API URL construction, or repeated UI markup when a focused shared utility/component is appropriate.
+- Every frontend component that is created must be used by at least one page or another used component. Do not leave dead or speculative components in the repository.
+- Build shared UI primitives and layouts for repeated structure (page shell, navigation, buttons, form fields, feedback states, image preview, table/card patterns). Pages should compose these components instead of duplicating their markup.
+- Use Vue 3 Composition API with typed props, emits, and exposed state. Keep page-specific orchestration in views/composables and keep presentational components focused.
+- Prefer a reusable layout for common frontend chrome. Every user-facing page must use the approved layout unless the page is explicitly a standalone exception.
+- Keep components cohesive; split a component only when the extracted component has a clear responsibility and is actually reused or materially improves readability.
+- Before adding a dependency or abstraction, confirm it solves a current requirement and document the decision when it affects architecture.
+- Preserve accessibility basics: semantic HTML, associated labels, keyboard-operable controls, useful focus states, and meaningful loading/error messages.
+- Use comments only to explain non-obvious decisions or constraints; do not comment code that is already self-explanatory.
+- Review changed files for dead code, unused imports, duplicated logic, accidental `console.log`, and inconsistent response contracts before completion.
+
 ## Current delivery priority
 
 1. Working product CRUD and image upload flow end to end.

@@ -2,7 +2,7 @@
 
 ## 1. Database choice
 
-Use MySQL in Docker Compose and Prisma as the ORM and migration tool. The connection string is provided through `DATABASE_URL`.
+Use MySQL in Docker Compose and Prisma ORM 7.10.0 as the ORM and migration tool. The connection string is provided through `DATABASE_URL`. Prisma Client uses the MySQL/MariaDB driver adapter.
 
 ## 2. Product model
 
