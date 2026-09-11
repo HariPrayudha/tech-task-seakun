@@ -4,7 +4,7 @@ Fullstack coding test untuk posisi Fullstack Developer di Seakun.
 
 ## Status
 
-Phase 1 — backend foundation selesai. Prisma schema Product, migration awal, environment validation, Prisma Client, dan centralized error handling sudah ditambahkan. Endpoint CRUD dan UI Product akan dikerjakan pada fase berikutnya.
+Phase 2 — Product REST API selesai. CRUD, Zod validation, consistent error responses, search, category filter, pagination, sorting, dan backend tests sudah ditambahkan. Image handling dan UI Product akan dikerjakan pada fase berikutnya.
 
 ## Struktur yang disepakati
 
@@ -57,6 +57,17 @@ npm run db:migrate:deploy
 ```
 
 `db:migrate:deploy` membutuhkan MySQL yang aktif dengan `DATABASE_URL` sesuai environment. Pada repository ini migration awal berada di `backend/prisma/migrations/`.
+
+Test dan quality checks backend:
+
+```bash
+cd backend
+npm test
+npm run typecheck
+npm run build
+```
+
+Product API tersedia di `/products` dengan endpoint list, detail, create, update (`PATCH` dan `PUT`), serta delete. Query list mendukung `search`, `category`, `page`, `limit`, `sortBy`, dan `sortOrder`.
 
 Frontend:
 

@@ -1,29 +1,38 @@
 import cors from "cors";
-import express from "express";
+import express, { type Router } from "express";
 
 import { env } from "./config/env.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFoundHandler } from "./middleware/notFoundHandler.js";
+import { productRouter } from "./routes/productRoutes.js";
 
-export const app = express();
+export const createApp = (productRoutes: Router = productRouter) => {
+  const app = express();
 
-app.use(
-  cors({
-    origin: env.CORS_ORIGIN,
-  }),
-);
-app.use(express.json());
+  app.use(
+    cors({
+      origin: env.CORS_ORIGIN,
+    }),
+  );
+  app.use(express.json());
 
-app.get("/health", (_request, response) => {
-  response.json({
-    success: true,
-    data: {
-      service: "backend",
-      status: "ok",
-      environment: env.NODE_ENV,
-    },
+  app.get("/health", (_request, response) => {
+    response.json({
+      success: true,
+      data: {
+        service: "backend",
+        status: "ok",
+        environment: env.NODE_ENV,
+      },
+    });
   });
-});
 
-app.use(notFoundHandler);
-app.use(errorHandler);
+  app.use("/products", productRoutes);
+
+  app.use(notFoundHandler);
+  app.use(errorHandler);
+
+  return app;
+};
+
+export const app = createApp();

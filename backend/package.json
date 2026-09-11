@@ -13,7 +13,9 @@
     "db:format": "prisma format",
     "db:validate": "prisma validate",
     "db:migrate:dev": "prisma migrate dev",
-    "db:migrate:deploy": "prisma migrate deploy"
+    "db:migrate:deploy": "prisma migrate deploy",
+    "test": "vitest run --configLoader runner",
+    "test:watch": "vitest --configLoader runner"
   },
   "dependencies": {
     "@prisma/adapter-mariadb": "7.10.0",
@@ -27,8 +29,11 @@
     "@types/cors": "latest",
     "@types/express": "latest",
     "@types/node": "latest",
+    "@types/supertest": "^7.2.1",
     "prisma": "7.10.0",
+    "supertest": "^7.2.2",
     "tsx": "latest",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.0"
   }
 }

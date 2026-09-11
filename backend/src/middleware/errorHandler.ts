@@ -4,6 +4,23 @@ import { ZodError } from "zod";
 import { AppError } from "../errors/AppError.js";
 
 export const errorHandler: ErrorRequestHandler = (error, _request, response, _next) => {
+  if (
+    error instanceof SyntaxError &&
+    "status" in error &&
+    error.status === 400 &&
+    "type" in error &&
+    error.type === "entity.parse.failed"
+  ) {
+    response.status(400).json({
+      success: false,
+      error: {
+        code: "INVALID_JSON",
+        message: "Request body contains invalid JSON",
+      },
+    });
+    return;
+  }
+
   if (error instanceof ZodError) {
     response.status(400).json({
       success: false,

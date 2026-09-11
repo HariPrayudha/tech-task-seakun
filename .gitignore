@@ -13,6 +13,7 @@ dist/
 frontend/dist/
 backend/src/generated/
 .vite/
+.vitest/
 
 # Local uploads: keep the directory, never commit uploaded files
 backend/uploads/*

@@ -1,0 +1,18 @@
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  cacheDir: ".vitest",
+  optimizeDeps: {
+    noDiscovery: true,
+  },
+  test: {
+    environment: "node",
+    env: {
+      NODE_ENV: "test",
+      DATABASE_URL: "mysql://seakun:seakun@localhost:3306/seakun_inventory",
+      UPLOAD_DIR: "./uploads",
+      MAX_IMAGE_SIZE_BYTES: "5242880",
+      CORS_ORIGIN: "http://localhost:5173",
+    },
+  },
+});
